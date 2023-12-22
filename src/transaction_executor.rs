@@ -27,6 +27,7 @@ use std::{
         Arc,
     },
 };
+use std::sync::Mutex;
 use ton_block::{ 
     AccStatusChange, Account, AccountStatus, AddSub, CommonMsgInfo, ComputeSkipReason,
     CopyleftReward, CurrencyCollection, Deserializable, ExtraCurrencyCollection, GasLimitsPrices,
@@ -87,6 +88,8 @@ pub struct ExecuteParams {
     pub block_version: u32,
     #[cfg(feature = "signature_with_id")]
     pub signature_id: i32,
+    pub vm_execution_is_block_related: Arc<Mutex<bool>>,
+    pub block_collation_was_finished: Arc<Mutex<bool>>,
 }
 
 pub struct ActionPhaseResult {
@@ -121,6 +124,8 @@ impl Default for ExecuteParams {
             block_version: 0,
             #[cfg(feature = "signature_with_id")]
             signature_id: 0,
+            vm_execution_is_block_related: Arc::new(Mutex::new(false)),
+            block_collation_was_finished: Arc::new(Mutex::new(false)),
         }
     }
 }
