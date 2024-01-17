@@ -430,6 +430,7 @@ pub trait TransactionExecutor {
             .set_libraries(libs)
             .set_gas(gas)
             .set_debug(params.debug)
+            .set_block_related_flags(params.vm_execution_is_block_related.clone(), params.block_collation_was_finished.clone())
             .create();
         
         if let Some(modifiers) = params.behavior_modifiers.clone() {

@@ -44,12 +44,13 @@ pub struct VMSetup {
 impl VMSetup {
 
     pub fn set_block_related_flags(
-        &mut self,
+        mut self,
         vm_execution_is_block_related: Arc<Mutex<bool>>,
         block_collation_was_finished: Arc<Mutex<bool>>,
-    ) {
+    ) -> VMSetup {
         self.vm_execution_is_block_related = vm_execution_is_block_related;
         self.block_collation_was_finished = block_collation_was_finished;
+        self
     }
 
     /// Creates new instance of VMSetup with contract code.
